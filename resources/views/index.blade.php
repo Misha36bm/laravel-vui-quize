@@ -12,7 +12,6 @@
 </head>
 
 <body id="app">
-    <app-loader id="app-loader"/>
 </body>
 
 </html>

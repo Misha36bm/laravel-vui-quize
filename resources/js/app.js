@@ -1,18 +1,8 @@
 import "./bootstrap";
 import { createApp } from "vue";
-import AppLoader from "./components/AppLoader.vue";
+import router from "./router";
 
-const app = createApp({
-    data() {
-        return {
-            isLoaderHidden: true,
-        };
-    },
-
-    components: {
-        AppLoader,
-    },
-});
+const app = createApp({});
 
 Object.entries(import.meta.glob("./**/*.vue", { eager: true })).forEach(
     ([path, definition]) => {
@@ -26,4 +16,4 @@ Object.entries(import.meta.glob("./**/*.vue", { eager: true })).forEach(
     }
 );
 
-app.mount("#app");
+app.use(router).mount("#app");
