@@ -12,7 +12,7 @@
 </head>
 
 <body id="app">
-    <app-layout-component></app-layout-component>
+    <app-loader id="app-loader"/>
 </body>
 
 </html>
