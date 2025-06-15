@@ -5,37 +5,46 @@ import RegistrationView from "./components/views/Auth/RegistrationView.vue";
 import DashboardView from "./components/views/DashboardView.vue";
 import CreateQuizeView from "./components/views/Quizes/CreateQuizeView.vue";
 import EditQuizeView from "./components/views/Quizes/EditQuizeView.vue";
+import GuestLayout from "./components/layouts/GuestLayout.vue";
+import AuthLayout from "./components/layouts/AuthLayout.vue";
 
 const routes = [
     {
         path: "/",
-        component: HomeView,
-        name: "home",
-    },
-    {
-        path: "/login",
-        component: LoginView,
-        name: "login",
-    },
-    {
-        path: "/register",
-        component: RegistrationView,
-        name: "register",
+        component: GuestLayout,
+        children: [
+            {
+                path: "",
+                component: HomeView,
+                name: "home",
+            },
+            {
+                path: "login",
+                component: LoginView,
+                name: "login",
+            },
+            {
+                path: "register",
+                component: RegistrationView,
+                name: "register",
+            },
+        ],
     },
     {
         path: "/admin",
         meta: {
             requiresAuth: true,
         },
+        component: AuthLayout,
         children: [
             {
                 path: "dashboard",
                 component: DashboardView,
                 name: "dashboard",
             },
-
             {
                 path: "quizes",
+                component: AuthLayout,
                 children: [
                     {
                         path: "create",
