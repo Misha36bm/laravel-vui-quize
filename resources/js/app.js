@@ -1,12 +1,11 @@
 import "./bootstrap";
-import { createPinia } from "pinia";
 import { createApp } from "vue";
 import router from "./router";
+import pinia from "./storage";
 import App from "./components/App.vue";
 import { useCsrfStore } from "./stores/csrf";
 
-const pinia = createPinia();
-const app = createApp(App);
+const app = createApp(App).use(router).use(pinia);
 
 Object.entries(import.meta.glob("./**/*.vue", { eager: true })).forEach(
     ([path, definition]) => {
@@ -19,8 +18,6 @@ Object.entries(import.meta.glob("./**/*.vue", { eager: true })).forEach(
         );
     }
 );
-
-app.use(router).use(pinia);
 
 const csrf = useCsrfStore();
 csrf.setToken(csrf.token);

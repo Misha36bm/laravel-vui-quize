@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import { useAuthStore } from "./stores/auth";
 import HomeView from "./components/views/HomeView.vue";
 import LoginView from "./components/views/Auth/LoginView.vue";
 import RegistrationView from "./components/views/Auth/RegistrationView.vue";
@@ -64,6 +65,26 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+    if (!to.meta.requiresAuth) {
+        next();
+    }
+
+    if (!useAuthStore().loaded) {
+        console.log(useAuthStore().hasToken());
+
+        if (useAuthStore().hasToken()) {
+            await useAuthStore().fetchUser();
+        }
+    }
+
+    if (to.meta.requiresAuth && !useAuthStore().user) {
+        return next({ name: "login" });
+    }
+
+    next();
 });
 
 export default router;
