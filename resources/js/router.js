@@ -44,7 +44,6 @@ const routes = [
             },
             {
                 path: "quizes",
-                component: AuthLayout,
                 children: [
                     {
                         path: "create",
